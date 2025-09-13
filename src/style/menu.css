@@ -1,0 +1,455 @@
+
+:root {
+    --bg: #0f0f0f;
+    --panel: #141414;
+    --card: #1c1c1c;
+    --accent: #ffcc00;
+    --muted: #9aa0a6;
+    --green: #4caf50;
+  }
+  html, body {
+    height: 100%;
+    margin: 0;
+  }
+  body {
+    font-family: 'Orbitron', Arial, sans-serif;
+    background: linear-gradient(145deg, #0c0c0c, #1a1a1a);
+    color: #fff;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+
+  /* PRELOADER */
+  #preloader {
+    position: fixed;
+    inset: 0;
+    background: #000;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .loader-circle {
+    width: 68px;
+    height: 68px;
+    border: 6px solid rgba(255, 255, 255, 0.12);
+    border-top: 6px solid #66ff00;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 12px;
+  }
+  .loader-text {
+    font-size: 1.15rem;
+    color: #ffd700;
+    text-shadow: 0 0 10px #ff6600;
+  }
+  @keyframes spin {
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+  /* HEADER */
+  header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 12px;
+    box-sizing: border-box;
+    background: var(--panel);
+    z-index: 50;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+  }
+  .logo {
+font-size: 1.3rem;       /* Чуть крупнее, чтобы было похоже на скрин */
+font-weight: 800;        /* Жирный текст */
+color: #fff;             /* Белый цвет */
+letter-spacing: 1px;     /* Разреженность как в GETX */
+font-family: Arial, sans-serif; /* Простой строгий шрифт */
+}
+
+.logo .accent {
+color: #fbbf24; /* Жёлтый (как X в GETX) */
+}
+
+
+  .header-buttons {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex-shrink: 0;
+  }
+  .header-buttons button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 0;
+    border-radius: 8px;
+    padding: 7px 10px;
+    font-weight: 700;
+    font-size: 0.86rem;
+    cursor: pointer;
+    white-space: nowrap;
+    min-height: 36px;
+  }
+  .login-btn {
+    background: #2b2b2b;
+    color: #fff;
+    flex-shrink: 0;
+  }
+  .register-btn {
+    background: var(--green);
+    color: #fff;
+    flex-shrink: 0;
+    padding: 7px 12px;
+  }
+
+  /* MAIN */
+  main {
+    padding: 74px 12px 94px;
+    box-sizing: border-box;
+    min-height: 100vh;
+  }
+
+  h3.section-title {
+    margin: 0 0 10px 0;
+    font-size: 0.95rem;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  /* SLIDER / CARDS */
+  .slider-wrap {
+    position: relative;
+  }
+  .games-row {
+    display: flex;
+    gap: 12px;
+    overflow-x: auto;
+    padding-bottom: 6px;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    scroll-behavior: smooth;
+  }
+  .games-row::-webkit-scrollbar {
+    display: none;
+  }
+  .game-card {
+    flex: 0 0 160px;
+    border-radius: 12px;
+    background: var(--card);
+    overflow: hidden;
+    scroll-snap-align: center;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
+    cursor: pointer;
+    transition: transform 0.18s;
+    position: relative;
+  }
+  .game-card:active {
+    transform: translateY(-3px);
+  }
+  .game-card img {
+    width: 100%;
+    height: 110px;
+    object-fit: cover;
+    display: block;
+  }
+  .game-card .label {
+    padding: 8px;
+    text-align: center;
+    font-size: 0.9rem;
+    color: #fff;
+  }
+
+  /* СКОРО (тёмная карточка) */
+  .card-soon img {
+    filter: brightness(.35) blur(0.6px);
+  }
+  .card-soon .soon-overlay {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 40px;
+    text-align: center;
+    font-weight: 700;
+    color: #fff;
+    font-size: 1rem;
+    pointer-events: none;
+  }
+
+  /* MODAL */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.7);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.18s;
+    z-index: 2000;
+  }
+  .modal-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .modal-box {
+    width: 92%;
+    max-width: 380px;
+    background: #151515;
+    border-radius: 12px;
+    padding: 16px;
+    box-sizing: border-box;
+    color: #fff;
+    position: relative;
+    text-align: center;
+  }
+  .modal-box img {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 10px;
+  }
+  .modal-box h2 {
+    margin: 6px 0;
+    font-size: 1.05rem;
+  }
+  .modal-box p {
+    margin: 6px 0;
+    color: var(--muted);
+    font-size: 0.92rem;
+  }
+  .close-cross {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: #222;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+  .play-now-button {
+display: inline-block;
+margin-top: 12px;
+padding: 10px 18px;
+border-radius: 8px;
+background: rgba(255, 255, 255, 0.1); /* Semi-transparent white background */
+color: #fff;
+border: 1px solid rgba(255, 255, 255, 0.3); /* Subtle white border */
+backdrop-filter: blur(8px); /* Glass effect */
+font-weight: 700;
+cursor: pointer;
+transition: background 0.3s, transform 0.3s;
+}
+
+.play-now-button:hover {
+background: rgba(255, 255, 255, 0.2); /* Slightly more opaque on hover */
+transform: scale(1.05); /* Slight scale effect on hover */
+}
+
+
+  /* BOTTOM NAV */
+  .bottom-nav {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 72px;
+    background: var(--panel);
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    border-top: 1px solid rgba(255, 255, 255, 0.03);
+    z-index: 60;
+  }
+
+  .nav-item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.72rem;
+    color: var(--muted);
+    gap: 3px;
+    height: 100%;
+    background: var(--panel);
+    clip-path: polygon(12% 0, 100% 0, 88% 100%, 0% 100%);
+    transition: background 0.2s, color 0.2s;
+  }
+
+  .nav-item svg {
+    width: 20px;
+    height: 20px;
+    fill: currentColor;
+  }
+
+  .nav-item.active {
+    color: var(--accent);
+    background: #1e1e1e;
+  }
+
+  /* RESPONSIVE TWEAKS */
+  @media (min-width: 420px) {
+    .game-card {
+      flex: 0 0 170px;
+    }
+  }
+
+  /* Скрыть нижнюю навигацию на ПК */
+  @media (min-width: 768px) {
+    .bottom-nav {
+      display: none;
+    }
+  }
+
+/* Баннер Игры от виктори */
+.banner-title {
+display: inline-flex;
+align-items: center;
+gap: 8px;
+font-size: 1.05rem;
+font-weight: 700;
+padding: 6px 12px;
+border-radius: 6px;
+background: #141414; /* тёмный фон как у GETX */
+color: #fff;
+margin: 20px 0 14px;
+}
+
+.banner-icon {
+width: 20px;
+height: 20px;
+fill: #494949; /* жёлтая иконка */
+}
+
+.banner-title .accent {
+color: #d3d3d3; /* жёлтое слово VICTORY */
+}
+
+/* Поддержка */
+/* Модалка */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.8);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    animation: fadeIn 0.3s ease;
+}
+.modal-overlay.active {
+    display: flex;
+}
+
+.support-box {
+    background: rgba(25, 25, 25, 0.9);
+    backdrop-filter: blur(12px);
+    border-radius: 20px;
+    padding: 35px 30px;
+    text-align: center;
+    max-width: 380px;
+    width: 90%;
+    box-shadow: 0 0 30px rgba(0,0,0,0.8);
+    transform: scale(0.8);
+    opacity: 0;
+    animation: scaleIn 0.4s forwards;
+}
+
+.close-cross {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    cursor: pointer;
+    font-size: 24px;
+    color: #bbb;
+    transition: 0.3s;
+}
+.close-cross:hover {
+    color: #fff;
+}
+
+.support-header svg {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 20px;
+    fill: #229ED9; /* Контурная иконка */
+}
+
+.support-header h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.support-header p {
+    font-size: 16px;
+    color: #aaa;
+    margin-bottom: 30px;
+}
+
+.support-btn {
+    display: inline-block;
+    border: 2px solid #229ED9;
+    background: transparent;
+    color: #229ED9;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 14px 32px;
+    border-radius: 50px;
+    text-decoration: none;
+    transition: 0.3s ease-in-out;
+    position: relative;
+    overflow: hidden;
+}
+
+.support-btn:before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 300%;
+    height: 300%;
+    background: #229ED9;
+    transition: all 0.4s;
+    border-radius: 50%;
+    transform: translate(-50%, -50%) scale(0);
+}
+
+.support-btn:hover {
+    background: rgba(34,158,217,0.15);
+    box-shadow: 0 0 20px rgba(34,158,217,0.4);
+    transform: translateY(-2px);
+}
+
+.support-btn:hover:before {
+    transform: translate(-50%, -50%) scale(1);
+}
+
+/* Анимации */
+@keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+@keyframes scaleIn {
+    to {transform: scale(1); opacity: 1;}
+}
